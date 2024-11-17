@@ -9,5 +9,8 @@
         <module name="ex1-hello-jpa" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jpashop" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
