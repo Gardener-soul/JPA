@@ -14,16 +14,18 @@ public class JpaMain {
 
         // 이 구간에 code 작성
         try{
-            // 삽입
+            // 삽입 및 비영속 상태
 //            Member member = new Member();
 //            member.setId(1L);
 //            member.setName("Gardener");
+
+            // em.persist를 한 순간 영속 상태
 //            em.persist(member);
 
             // 찾기
-            Member findMember = em.find(Member.class, 1L);
+//            Member findMember = em.find(Member.class, 1L);
             // 찾은 정보를 바탕으로 수정
-            findMember.setName("EunSoo");
+//            findMember.setName("EunSoo");
 
             // 삭제
 //            em.remove(findMember);
