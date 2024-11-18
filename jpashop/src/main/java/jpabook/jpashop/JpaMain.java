@@ -3,6 +3,7 @@ package jpabook.jpashop;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,10 +23,8 @@ public class JpaMain {
         // 현재 방식은 객체 설계를 테이블 설계에 맞춘 방식
         // 테이블의 외래키를 객체에 그대로 가져옴
         try{
-            Order order = em.find(Order.class, 1L);
-            Long memberId = order.getMemberId();
-
-            Member findMember = order.getMember();
+            Order order = new Order();
+            order.addOrderItem(new OrderItem());
 
             tx.commit();
         } catch (Exception e) {

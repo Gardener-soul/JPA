@@ -2,6 +2,8 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -11,11 +13,12 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-    // 누가 주문했는지 알아야함
-    @Column(name = "MEMBER_ID")
-    private Long memberId;
-
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @OneToMany(mappedBy = "order")
+    List<OrderItem> orderItems = new ArrayList<>();
 
     public Member getMember() {
         return member;
@@ -34,19 +37,36 @@ public class Order {
         this.id = id;
     }
 
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
     public LocalDateTime getOrderDate() {
         return orderDate;
     }
 
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = orderDate;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public jpabook.jpashop.domain.OrderStatus getOrderStatus() {
+        return OrderStatus;
+    }
+
+    public void setOrderStatus(jpabook.jpashop.domain.OrderStatus orderStatus) {
+        OrderStatus = orderStatus;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
     }
 }
