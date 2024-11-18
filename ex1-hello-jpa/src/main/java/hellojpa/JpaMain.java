@@ -1,6 +1,8 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.sql.SQLOutput;
+import java.util.List;
 
 public class JpaMain {
 
@@ -14,23 +16,23 @@ public class JpaMain {
 
         // 이 구간에 code 작성
         try{
-            // 삽입 및 비영속 상태
-//            Member member = new Member();
-//            member.setId(1L);
-//            member.setName("Gardener");
+            Team team = new Team();
+            team.setName("TeamA");
+            em.persist(team);
 
-            // em.persist를 한 순간 영속 상태
-//            em.persist(member);
+            Member member = new Member();
+            member.setName("gardener");
+            member.changeTeam(team);
+            em.persist(member); // 영속성 컨텍스트에 저장
 
-            // 찾기
-//            Member findMember = em.find(Member.class, 1L);
-            // 찾은 정보를 바탕으로 수정
-//            findMember.setName("EunSoo");
+            Member findMember = em.find(Member.class, member.getId());
+            List<Member> members = findMember.getTeam().getMembers();
+            for(Member m : members) {
+                System.out.println(m.getName());
+            }
 
-            // 삭제
-//            em.remove(findMember);
+            Team findTeam = findMember.getTeam();
 
-            // 트랜잭션 단위의 커밋
             tx.commit();
         } catch (Exception e) {
             // 혹시 오류가 생기면 롤백
